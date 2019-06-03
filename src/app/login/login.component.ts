@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit {
         password : obj.password,
         username : obj.username
     }
-    // console.log(user);
+      console.log(user);
       this.authService.authenticateUser(user).subscribe(data=>{
           if(data.success){
             this.authService.storeUserData(data.token , data.user);

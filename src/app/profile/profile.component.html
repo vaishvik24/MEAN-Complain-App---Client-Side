@@ -1,10 +1,40 @@
+<br>
 <div *ngIf="user">
   <h2 class="page-header" >Hello , {{user.username}} . </h2>
-      
+      <br>
       <ul class="list-group">
           <li class="list-group-item">NAME : {{user.name}}</li>
           <li class="list-group-item">EMAIL : {{user.email}}</li> 
       </ul>  
+
+      <br>
+      <br>
+      <button class="btn btn-primary" style="display: block; margin: 0 auto; display: flex;
+      justify-content: center;
+      align-items: center;" (click)="addComplain()"> Add Complain </button>
+
+      <hr>
+      <br>
+      <br>
+        <div  style="display: block; margin: 0 auto; display: flex;
+        justify-content: center;
+        align-items: center;">
+        <h4> VIEW MY COMPLAINS : </h4>
+            <br>
+            <table border = "1" cellpadding = "5" cellspacing = "5" bgcolor = "white" width="50%">
+            <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Status</th>
+            </tr>
+
+            <tr *ngFor="let item of complains">
+            <td> {{item.complainName}} </td>
+            <td> {{item.type}}</td>
+            <td> {{item.status}}</td>
+            </tr>
+            </table>
+        </div>
   </div>
   
   

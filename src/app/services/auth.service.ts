@@ -22,6 +22,18 @@ export class AuthService {
     return this.http.post('http://localhost:4000/users/register',user , {headers:headers}).map(res=>res.json());
   }
 
+  viewMyComplains(name_){
+    console.log("your name from auth " + name_);
+    return this.http.get('http://localhost:4000/users/viewComplains/'+ name_);
+  }
+  
+  addComplain(complain){
+    let headers = new Headers();
+    // console.log("register");
+    headers.append('Content-Type','application/json');
+    return this.http.post('http://localhost:4000/users/addComplain',complain , {headers:headers}).map(res=>res.json());
+  }
+
   changePassword(newp){
     let headers = new Headers();
     // console.log("register");
@@ -37,6 +49,10 @@ export class AuthService {
  
   getAllUsers(){
     return this.http.get('http://localhost:4000/users/getUsers');
+  }
+
+  getAllComplains(){
+    return this.http.get('http://localhost:4000/users/viewComplains');
   }
 
   getProfile(){

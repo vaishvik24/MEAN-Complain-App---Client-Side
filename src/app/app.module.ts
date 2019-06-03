@@ -26,6 +26,7 @@ import { HomeComponent } from './home/home.component';
 import { EmailValidators } from './register/email.validators';
 import { PhoneNumberValidator } from './register/phoneNo.validators';
 import { UsernameValidators } from './register/username.validators';
+import { AddComplainComponent } from './add-complain/add-complain.component';
 
 const appRoute : Routes = [
   { path:'' ,component: HomeComponent},
@@ -33,7 +34,9 @@ const appRoute : Routes = [
   { path:'Login' ,component: LoginComponent , canActivate: [Auth2Guard] },
   { path:'Register' ,component: RegisterComponent , canActivate: [Auth2Guard] },
   { path:'Profile/:username' ,component: ProfileComponent , canActivate:[AuthGuard]},
-  {path: 'aboutUs',component: AboutUsComponent}
+  { path:'addComplain' ,component: AddComplainComponent , canActivate:[AuthGuard]},
+  { path: 'aboutUs',component: AboutUsComponent},
+
 ]; 
 
 @NgModule({
@@ -44,7 +47,8 @@ const appRoute : Routes = [
     RegisterComponent,
     AboutUsComponent,
     NavbarComponent,
-    HomeComponent
+    HomeComponent,
+    AddComplainComponent
   ],
   imports: [
     BrowserModule,

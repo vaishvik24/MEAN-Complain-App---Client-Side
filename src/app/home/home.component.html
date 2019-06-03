@@ -1,3 +1,68 @@
-<p>
-  home works!
-</p>
+ 
+<br>
+<div class='container-fluid' class="row">
+
+    <div class='col-md-7' style="margin-top: 5px;" >
+      <ngb-carousel>
+      <ng-template ngbSlide>
+        <img src="https://tse3.mm.bing.net/th?id=OIP.7p0aq9OkgQs_1VqJ_lkfNAHaEo&pid=Api&P=0&w=258&h=162" alt="Slide 1. Make sure about internet connection" style="width: 100%; height: 350px;">
+        <div class="carousel-caption">
+          <h3> Lorem ipsum dolor sit.</h3>
+          <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque nulla asperiores temporibus ipsum. Nulla cupiditate libero et vitae ab! Repellendus? </p>
+        </div>
+      </ng-template>
+      <ng-template ngbSlide>
+        <img src="https://tse3.mm.bing.net/th?id=OIP.qhVqjpeIB4SKcTEF7Cml-AHaDd&pid=Api&P=0&w=379&h=177" alt="Slide 2. Make sure about internet connection" style="width: 100%; height: 350px;">
+        <div class="carousel-caption">
+          <h3 style="color: black"> Lorem ipsum dolor sit.</h3>
+          <p style="color: black"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque nulla asperiores temporibus ipsum. Nulla cupiditate libero et vitae ab! Repellendus? </p>
+        </div>
+      </ng-template>
+      <ng-template ngbSlide>
+        <img src="https://tse3.mm.bing.net/th?id=OIP.ooF9wNQDVStUBguL_ljtVAHaEc&pid=Api&P=0&w=251&h=152" alt="Slide 3. Make sure about internet connection" style="width: 100%; height: 350px;">
+        <div class="carousel-caption">
+          <h3 style="color: black"> Lorem ipsum dolor sit.</h3>
+          <p style="color: black"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque nulla asperiores temporibus ipsum. Nulla cupiditate libero et vitae ab! Repellendus? </p>
+        </div>
+      </ng-template>
+      <ng-template ngbSlide>
+        <img src="https://tse2.mm.bing.net/th?id=OIP.EPapvGajagZYh0V0Juzs_QHaDi&pid=Api&P=0&w=400&h=192" alt="Slide 4. Make sure about internet connection" style="width: 100%; height: 350px;">
+        <div class="carousel-caption">
+          <h3 style="color: black"> Lorem ipsum dolor sit.</h3>
+          <p style="color: black"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque nulla asperiores temporibus ipsum. Nulla cupiditate libero et vitae ab! Repellendus? </p>
+        </div>
+      </ng-template>
+      </ngb-carousel>
+    </div>
+ 
+    <div class="col-md-5" style="margin-top: 5px;">
+        <h3 style="color :black">WHY COMPLAIN APP ? </h3>
+        <p style="color: black">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptates, voluptatibus odit! Facilis, harum accusantium ut omnis aut voluptatum dicta nemo, illo quia numquam hic nesciunt a nostrum ullam necessitatibus corrupti autem quasi modi. Rerum explicabo, eum saepe minima nam voluptates sequi harum perspiciatis fuga quos nostrum aspernatur repudiandae incidunt corporis. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Exercitationem voluptates beatae atque. Vero, necessitatibus alias ratione quasi assumenda qui quo voluptate? Voluptates dolore officia quis excepturi rem illo accusantium aperiam. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil quia veritatis quae molestiae fuga cupiditate.</p>  
+   
+    </div>
+</div>
+
+<hr>
+<br>
+<h1> VIEW COMPLAINS :</h1>
+
+<div class="scrolling-wrapper">
+  <div  class="card" *ngFor="let i of complains ; let i1=index" style="margin-left: 5px ;padding: 5px; border:2px solid black;">
+        <div style="background-color: #fafdfc; margin: 1 px;"> 
+        <h5>NAME : {{i.complainName}}</h5>
+        <h6>Date for it is available: {{i.time}}</h6>
+        <h6>NAME : {{i.complainerName}} </h6>
+      </div>
+
+      <div style="background-color: #e3faf4; margin: 1 px;">
+          <h6>CITY : {{i.city}} </h6>
+          <h6>AREA : {{i.area}} </h6>
+          <h6>TYPE : {{i.type}} </h6>
+      </div>
+
+      <div style="background-color: #fafdfc; margin: 1 px;"> 
+          <h5>STATUS : {{i.status}}</h5>
+        </div>
+ 
+  </div>
+</div>
