@@ -41,12 +41,69 @@
    
     </div>
 </div>
-
-<hr>
 <br>
+<br>
+<div>
+    <div style="display: block; margin: 0 auto; background-color: black; display: flex;
+    justify-content: center;
+    align-items: center;" >
+        <h3 style="color: white">Apply Filter :</h3>
+    </div>
+    <br>
+  </div>
+  <button (click)="allProducts()" class="btn btn-success" style="display: block; margin: 0 auto;" type="button">ALL PRODUCTS</button>
+  <br>
+  <div style="display: block; margin: 0 auto; display: flex;
+  justify-content: center;
+  align-items: center;">
+      <form id="filter">
+          <label>Filter by names :</label>
+          <input type="text" [(ngModel)]="term" term="term" [ngModelOptions]="{standalone: true}" />
+      </form>  
+  </div>
+      
+
+  <br>
+
+<div style="display: block; margin: 0 auto; display: flex;
+justify-content: center;
+align-items: center;" class="row">  
+  <button class="col-md-1" class="col-sm-4" *ngFor="let c of cat_main" routerLink="/" 
+  [queryParams]="{category:c}"
+  [class.active]="category == c" class="btn btn-success" style="margin-right: 1px" >{{c}} </button>
+</div>
+<br>
+<br>
+<hr>
 <h1> VIEW COMPLAINS :</h1>
 
-<div class="scrolling-wrapper">
+<div style="padding-left: 0.5em; padding-right: 0.5em;" >
+    <div class="row" class="wrapper">
+      <div *ngFor="let i of filter_product | filter:term  | paginate: { itemsPerPage: 6, currentPage: p } ; let i1=index" class="wrapper2">
+            <div style="background-color: rgb(199, 213, 235)"> 
+
+              <h5>NAME : {{i.complainName}}</h5>
+              <h6>Date for it is available: {{i.time}}</h6>
+              <h6>NAME : {{i.complainerName}} </h6>
+            </div>
+            <div style="background-color: rgb(197, 212, 228)">
+              <h6>CITY : {{i.city}} </h6>
+              <h6>AREA : {{i.area}} </h6>
+              <h6>TYPE : {{i.type}} </h6>
+            </div>
+          <div >
+            <div> 
+                <h5>STATUS : {{i.status}}</h5>
+             </div>  
+          </div>
+        </div>
+    </div>
+  </div>
+  
+  <pagination-controls (pageChange)="p = $event" style="text-align:center"></pagination-controls>
+
+  
+<!-- <div class="scrolling-wrapper">
   <div  class="card" *ngFor="let i of complains ; let i1=index" style="margin-left: 5px ;padding: 5px; border:2px solid black;">
         <div style="background-color: #fafdfc; margin: 1 px;"> 
         <h5>NAME : {{i.complainName}}</h5>
@@ -65,4 +122,11 @@
         </div>
  
   </div>
-</div>
+</div> -->
+<br>
+<br>
+<hr>
+<h1> Total Number Of Complains Registed is : {{numberObject?.total}}</h1>
+<h3> Total Number Of Complains For Water : {{numberObject?.Water}} </h3>
+<h3>  Total Number Of Complains For Road  : {{numberObject?.Road}} </h3>
+<h3>  Total Number Of Complains that are COMPLETED :  {{numberObject?.Completed}} </h3>

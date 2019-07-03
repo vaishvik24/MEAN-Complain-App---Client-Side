@@ -57,7 +57,25 @@
             </div>
            
           </div>
-      
+          
+          <div class="form-group">
+            <label for="acc_type">Account Type</label>
+           <select class="form-control" formControlName="acc_type" [ngClass]="{'is-invalid':form.get('acc_type').touched && form.get('acc_type').invalid}" required  >
+             <option value=""> Choose Account Type </option>
+             <option *ngFor="let t of acc_type_select">{{t}}</option>
+           </select>
+          </div>
+
+          <div class="form-group">
+            <label for="category">Category</label>
+           <select class="form-control" formControlName="category" [ngClass]="{'is-invalid':form.get('category').touched && form.get('category').invalid}" required  >
+             <option value="">Category </option>
+             <option *ngFor="let t of dept_type">{{t}}</option>
+           </select>
+              <div class="invalid-feedback">
+                <div>Category is required</div>
+              </div>
+          </div>
 
             <div class="form-group">
               <label for="url">URL for your profile image</label>

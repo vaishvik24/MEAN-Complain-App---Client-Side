@@ -15,6 +15,32 @@ export class AuthService {
 
   constructor(private http : Http) { }
 
+  sendEmails(email){
+    let headers = new Headers();
+    headers.append('Content-Type','application/json');
+    return this.http.post('http://localhost:4000/users/email', email , {headers:headers}).map(res=>res.json());
+  }
+
+  getNumberComplain(){
+    return this.http.get('http://localhost:4000/users/getNumbers');
+
+  }
+  progComplainBar(obj , id){
+    let headers = new Headers();
+    headers.append('Content-Type','application/json');
+    return this.http.post('http://localhost:4000/users/progressOfComplain/' + id , obj , {headers:headers}).map(res=>res.json());
+  }  
+
+  assignWorkerToComplain(obj){
+    let headers = new Headers();
+    headers.append('Content-Type','application/json');
+    return this.http.post('http://localhost:4000/users/assignComplainToWorker', obj , {headers:headers}).map(res=>res.json());
+  }
+
+  getWorkersComplain(wid){
+    return this.http.get('http://localhost:4000/users/getAsscomplains/' + wid);
+  }
+
   registerUser(user){
     let headers = new Headers();
     // console.log("register");
@@ -23,9 +49,14 @@ export class AuthService {
   }
 
   viewMyComplains(name_){
-    console.log("your name from auth " + name_);
+    // console.log("your name from auth " + name_);
     return this.http.get('http://localhost:4000/users/viewComplains/'+ name_);
   }
+
+  viewComplainById(id){
+    return this.http.get('http://localhost:4000/users/viewComplainById/'+ id);
+  }
+
   
   addComplain(complain){
     let headers = new Headers();
@@ -54,6 +85,8 @@ export class AuthService {
   getAllComplains(){
     return this.http.get('http://localhost:4000/users/viewComplains');
   }
+
+
 
   getProfile(){
     let headers = new Headers();

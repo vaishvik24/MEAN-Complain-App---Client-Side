@@ -22,6 +22,7 @@ export class AddComplainComponent implements OnInit {
             ) { }
 
   private counter ;
+  categories = ["Health","Water","Road","Infrastructur","Rural Development"];
   form = new FormGroup({
     complainName: new FormControl('', [
       Validators.required   
@@ -40,22 +41,28 @@ export class AddComplainComponent implements OnInit {
     city: new FormControl('', [
       Validators.required   
       ]
-    ),
-
-    complainerName: new FormControl('', [
-      Validators.required   
-      ]
     )
     });
+
+  user : any;
+
   ngOnInit() {
     document.body.scrollTop = 0; // For Safari
     document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    this.authService.getProfile().subscribe( profile =>{
+      this.user = profile.user;
+      // console.log(this.user);
+     },err=>{
+       console.log(err);
+       return false;
+    });
   }
 
   onSubmit() {
     let obj = this.form.value;
     const user = {
-        complainerName : obj.complainerName,
+        complainerName : this.user.name,
+        complainerId : this.user._id,
         complainName : obj.complainName,
         type : obj.type,
         city : obj.city,

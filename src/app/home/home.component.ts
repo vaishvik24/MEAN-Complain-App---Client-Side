@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService} from '../services/auth.service';
+import { ActivatedRoute } from '@angular/router';
+import { Router} from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -7,13 +9,38 @@ import { AuthService} from '../services/auth.service';
   styleUrls: ['./home.component.styl','./home.component.css']
 })
 export class HomeComponent implements OnInit {
-
   constructor(    
-    private authService : AuthService
-  ) {
-  }
+    private authService : AuthService,
+    private Route:  ActivatedRoute,
+    private router : Router,
 
+
+  ) {
+    for(let i=0;i<100;i++){
+      this.pagination.push('angular '+i);
+    }
+    this.Route.queryParamMap.subscribe(params=>{
+      this.category = params.get('category');
+    });
+  
+    this.authService.getAllComplains()
+                    .subscribe(response =>{
+                        this.Route.queryParamMap.subscribe(params=>{  
+                        this.category = params.get('category');
+                        this.filter_product = [];
+                        this.filter_product  = (this.category) ? 
+                          this.complains.filter(p => p.type === this.category) :
+                          this.complains;
+                      });
+    });
+  }
+  category = "";
+  filter_product = [];
+  private cat_main = ["Water","Road","Health","Other"];
+  private pagination = [];
+  numberObject = Object;
   complains = [];
+
   ngOnInit() {
     this.authService.getAllComplains().subscribe( res =>{
       
@@ -28,11 +55,17 @@ export class HomeComponent implements OnInit {
               image : null,
               status : res.json()[i].status
             };
-            console.log(this.complains[i]);
       }
+    });
+    this.authService.getNumberComplain().subscribe( res =>{
+      // console.log(res.json());
+      this.numberObject = res.json();
     });
   }
 
-
+  allProducts(){
+    this.filter_product = this.complains;
+    this.router.navigate(['/']);
+  }
 
 }

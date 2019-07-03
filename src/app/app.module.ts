@@ -24,10 +24,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HomeComponent } from './home/home.component';
 import { EmailValidators } from './register/email.validators';
+import {NgxPaginationModule} from 'ngx-pagination';
 import { PhoneNumberValidator } from './register/phoneNo.validators';
 import { UsernameValidators } from './register/username.validators';
 import { AddComplainComponent } from './add-complain/add-complain.component';
-
+import { ComplainComponent } from './complain/complain.component';
+import {FilterPipe } from './filter.pipe';
+import {FilterPricePipe} from  './filter.price.pipe';
 const appRoute : Routes = [
   { path:'' ,component: HomeComponent},
   { path:'Navbar' ,component: NavbarComponent},
@@ -36,6 +39,7 @@ const appRoute : Routes = [
   { path:'Profile/:username' ,component: ProfileComponent , canActivate:[AuthGuard]},
   { path:'addComplain' ,component: AddComplainComponent , canActivate:[AuthGuard]},
   { path: 'aboutUs',component: AboutUsComponent},
+  { path: 'complain/:id' , component: ComplainComponent}
 
 ]; 
 
@@ -48,7 +52,10 @@ const appRoute : Routes = [
     AboutUsComponent,
     NavbarComponent,
     HomeComponent,
-    AddComplainComponent
+    AddComplainComponent,
+    ComplainComponent,
+    FilterPipe,
+    FilterPricePipe
   ],
   imports: [
     BrowserModule,
@@ -60,7 +67,8 @@ const appRoute : Routes = [
     AngularFileUploaderModule,
     HttpClientModule,
     ReactiveFormsModule,
-    NgbModule
+    NgbModule,
+    NgxPaginationModule
 
   ],
   providers: [ValidateService,AuthService,AuthGuard,Auth2Guard, FlashMessagesService,EmailValidators,PhoneNumberValidator,UsernameValidators],
