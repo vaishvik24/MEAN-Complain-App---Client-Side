@@ -59,17 +59,23 @@ export class AddComplainComponent implements OnInit {
   }
 
   onSubmit() {
-    let obj = this.form.value;
-    const user = {
-        complainerName : this.user.name,
-        complainerId : this.user._id,
-        complainName : obj.complainName,
-        type : obj.type,
-        city : obj.city,
-        area : obj.area
-    }
-    console.log(user);
-    this.authService.addComplain(user).subscribe(data=>{
+    let lat_ = 0;
+    let long_ =0;
+    navigator.geolocation.getCurrentPosition( resp=>{
+      long_ = resp.coords.longitude;
+      lat_ = resp.coords.latitude;
+      let obj = this.form.value;
+      const user = {
+          complainerName : this.user.name,
+          complainerId : this.user._id,
+          complainName : obj.complainName,
+          type : obj.type,
+          city : obj.city,
+          area : obj.area,
+          latitude: lat_ ,
+          longitude: long_
+      }
+      this.authService.addComplain(user).subscribe(data=>{
         if(data.success){
           this.flashMessagesService.show(data.msg ,{cssClass: 'alert-success' ,timeout :5000});
           this.router.navigate(['/']);
@@ -79,6 +85,9 @@ export class AddComplainComponent implements OnInit {
           this.router.navigate(['Login']);
         }
     });
+    });
+
+
   }
 }
 

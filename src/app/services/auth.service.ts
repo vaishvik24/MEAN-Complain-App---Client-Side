@@ -12,8 +12,21 @@ export class AuthService {
   reqProduct : any;
   getset: any;
   
-
   constructor(private http : Http) { }
+
+  paymentRequest(payment){
+    let headers = new Headers();
+    // console.log("register");
+    headers.append('Content-Type','application/json');
+    return this.http.post('http://localhost:4000/users/pay',payment , {headers:headers}).map(res=>res.json());
+  }
+
+  paymentDetails(id){
+    return this.http.get('http://localhost:4000/users/paymentDetails/'+ id);
+  }
+  paymentSuccess(){
+    return this.http.get('http://localhost:4000/users/success');
+  }
 
   sendEmails(email){
     let headers = new Headers();

@@ -5,7 +5,6 @@ import { ActivatedRoute } from '@angular/router';
 import {  FlashMessagesService } from 'angular2-flash-messages';
 import { FormGroup , FormControl, Validators} from '@angular/forms';
 import { UsernameValidators } from '../register/username.validators';
-import { and } from '@angular/router/src/utils/collection';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -167,6 +166,14 @@ export class ProfileComponent implements OnInit {
             };
           }
           else{
+            if(res.json()[j].status == 99){
+              var flag  = true;
+              var flag2 = false;
+            }
+            if(res.json()[j].status == 100){
+              var flag2  = true;
+              var flag = false;
+            }
             this.assignedComplains[this.countAssComp++] = {
               id : res.json()[j]._id,
               complainerName : res.json()[j].complainerName,
@@ -177,12 +184,14 @@ export class ProfileComponent implements OnInit {
               area : res.json()[j].area,
               time : res.json()[j].time,
               image : null,
-              status : res.json()[j].status
+              status : res.json()[j].status,
+              statusFlag : flag,
+              statusFlag2 : flag2
             };
           }
 
       }
-      console.log(this.countAssComp + "        " + this.countNonAssComp);
+      // console.log(this.countAssComp + "        " + this.countNonAssComp);
     });
 
   }
@@ -199,6 +208,7 @@ export class ProfileComponent implements OnInit {
   selectedComplainWorker = null;
   showDiv = false;
   workIsDone = false;
+  doneButNot = false;
   progValue = 0;
   ViewDivWorker(item){
     this.showDiv = false;
@@ -207,19 +217,24 @@ export class ProfileComponent implements OnInit {
     this.selectedComplainWorker = item;
     let number = item.status;
     if(number == 0){
-      this.progArr = [ 25 , 50 , 75 , 100];
+      this.progArr = [ 25 , 50 , 75 , 99];
     }
     if(number == 25){
-      this.progArr = [ 50 , 75, 100];
+      this.progArr = [ 50 , 75, 99];
     }
     if(number == 50){
-      this.progArr = [ 75 , 100 ];
+      this.progArr = [ 75 , 99 ];
     }
     if(number == 75){
-      this.progArr = [100];
+      this.progArr = [99];
+    }
+    if(number == 99){
+      this.progArr = [];
+      this.doneButNot = true;
     }
     if(number == 100){
       this.progArr = [];
+      this.workIsDone = true;
       this.workIsDone = true;
     }
   }
@@ -310,6 +325,14 @@ export class ProfileComponent implements OnInit {
               };
             }
             else{
+              if(res.json()[j].status == 99){
+                var flag  = true;
+                var flag2 = false;
+              }
+              if(res.json()[j].status == 100){
+                var flag2  = true;
+                var flag = false;
+              }
               this.assignedComplains[this.countAssComp++] = {
                 id : res.json()[j]._id,
                 complainerName : res.json()[j].complainerName,
@@ -320,7 +343,10 @@ export class ProfileComponent implements OnInit {
                 area : res.json()[j].area,
                 time : res.json()[j].time,
                 image : null,
-                status : res.json()[j].status
+                status : res.json()[j].status,
+                statusFlag : flag,
+                payment : res.json()[j].payment,
+                statusFlag2 : flag2
               };
             }
   
@@ -332,5 +358,55 @@ export class ProfileComponent implements OnInit {
       }
     })
   }
+
+  checkedWork(item){
+    console.log(item.id);
+    let obj = {
+      number : 100
+    }
+    console.log(obj);
+    // console.log(id + " " + this.progValue);
+    this.authService.progComplainBar(obj,item.id).subscribe(res =>{
+      if(res.success){
+        this.flashMessages.show(res.msg ,{cssClass: 'alert-success' ,timeout :5000});
+      }else{
+        this.flashMessages.show(res.msg ,{cssClass: 'alert-success' ,timeout :5000});
+      }
+    });
+  }
+  giveRewards(item){
+    alert("ReWards has given to worker !");
+  }
+
+  url_payment : String;
+  flag_ = false;
+  show__ = false;
+
+
+  payment(item){
+    this.show__ = true;
+    console.log(item);
+    
+    var reqBody = {
+      name : item.id,
+      price : 100 ,
+      discription : item.complainName + " By " + item.complainerName
+    }
+    console.log(reqBody);
+    this.authService.paymentRequest(reqBody).subscribe( res =>{
+      if(!res.success){
+        this.flashMessages.show( res.url ,{cssClass: 'alert-danger' ,timeout :4000});
+      }else{
+        console.log("res "+ res);
+        // this.url_show = true;
+        this.url_payment = res.url;
+        this.flag_ = true;
+        // this.webService.refreshRealtime();
+      }
+
+    });
+    console.log("payment");
+  }
+
 }
 

@@ -20,8 +20,9 @@
         <h3 style="display: block; margin: 0 auto; display: flex;
         justify-content: center;
         align-items: center;"> PROGRESS BAR SELECTOR : {{selectedComplainWorker?.status}} % WORK Completed .</h3>
+        <h5 *ngIf="!workIsDone"> But Yet Not Varified by ADMIN .</h5>
         <p> Here 0 indicates that phase 1 is just started. 25 indicates your quater of work is completed means phase 1 is finished. Where 50 and 75 state that phase2 and phase3 is completed respcetively. 100 shows that your complain successfully done by worker.</p>
-            <div *ngIf="!workIsDone" style="display: block; margin: 0 auto; display: flex;
+            <div *ngIf="!workIsDone && !doneButNot" style="display: block; margin: 0 auto; display: flex;
             justify-content: center;
             align-items: center;">
                 <select [(ngModel)]="progValue" progValue="progValue" [ngModelOptions]="{standalone: true}" >
@@ -33,10 +34,15 @@
                 <br>
                 <button (click)="giveProg(selectedComplainWorker?.complainId)">Go</button> 
             </div>
+            <div *ngIf="doneButNot && !workIsDone" style="display: block; margin: 0 auto; display: flex;
+            justify-content: center;
+            align-items: center;">
+                <h1 style="color: rgb(247, 84, 9)">YOU ARE DONE WITH WORK BUT Your Profile Work is yet not approved. In Case of query contact your ADMIN.</h1>
+            </div>
             <div *ngIf="workIsDone" style="display: block; margin: 0 auto; display: flex;
             justify-content: center;
             align-items: center;">
-                <h1 style="color: red">YOUR COMPLAIN IS SUCCESSFULLY COMPLETED !!!</h1>
+                <h1 style="color: rgb(51, 255, 0)">YOUR COMPLAIN IS SUCCESSFULLY COMPLETED !!!</h1>
             </div>
 
     <br>
@@ -85,16 +91,14 @@
           <li class="list-group-item">Category : {{user.category}}</li>
           <li class="list-group-item">Account type : {{user.type}}</li>
       </ul>  
-
-      <br>
-      <br>
+      <br><br>
       <p> Only Account type with USER can register or can do COMPLAIN our website.</p>
       <button *ngIf="user_type" class="btn btn-primary" style="display: block; margin: 0 auto; display: flex;
       justify-content: center;
       align-items: center;" (click)="addComplain()"> Add Complain </button>
-      <hr>
-      <br>
-      <br>
+      <hr><br><br>
+
+      <!-- For User  -->
       <h4 *ngIf="!isAdmin && !isWorker"> VIEW MY COMPLAINS : </h4>
         <div *ngIf="!isAdmin && !isWorker" style="display: block; margin: 0 auto; display: flex;
         justify-content: center;
@@ -125,7 +129,11 @@
             <br>
             <br>
         </div>
+
+
+        <!-- For Admin  -->
         <h4 *ngIf="isAdmin"> VIEW MY WORKERS : </h4>
+
           <div *ngIf="isAdmin" style="display: block; margin: 0 auto; display: flex;
           justify-content: center;
           align-items: center;">
@@ -184,7 +192,9 @@
    
         </div>
 
-  <h4 *ngIf="isAdmin"> VIEW ALL Assinged COMPLAINS : </h4>
+
+    <!--  For Admin -->
+    <h4 *ngIf="isAdmin"> VIEW ALL Assinged COMPLAINS : </h4>
     <div *ngIf="isAdmin" style="display: block; margin: 0 auto; display: flex;
     justify-content: center;
     align-items: center;">
@@ -203,18 +213,30 @@
                 <td> {{item.complainName}} </td>
                 <td>{{item.complainerName}}</td>
                 <td> {{item.type}}</td>
-                <td> {{item.status}}</td>
+                <td> {{item.status}}
+                    <button *ngIf="item.statusFlag && !item.statusFlag2" (click)="checkedWork(item)"> CHECKED </button>
+                    <button  *ngIf="item.statusFlag2 && !item.statusFlag && item.payment" class="btn btn-danger" (click)= "payment(item)">Payment</button>  
+
+                </td>
                 <td> <button class="btn btn-danger" (click)="viewComplain(item.id)"> VIEW </button></td>
                 </tr>
         </table>
+        <br>
+        <div *ngIf="show__" style="background-color: paleturquoise ; padding: 5px;">
+            <p style="color: red"> Wait for few second your URL is generating for payment.Will be shown below : </p>
+            <a *ngIf="flag_"  href={{url_payment}}> CLICK HERE TO PAYMENT</a>
+        </div>
         <br>
         <br>
         <hr>
 
     </div>
 
+
+
+    <!-- For Worker  -->
     <h4 *ngIf="isWorker"> VIEW ALL Assinged COMPLAINS that are assigned to me ! : </h4>
-      <div *ngIf="isWorker" style="display: block; margin: 0 auto; display: flex;
+    <div *ngIf="isWorker" style="display: block; margin: 0 auto; display: flex;
       justify-content: center;
       align-items: center;">
       

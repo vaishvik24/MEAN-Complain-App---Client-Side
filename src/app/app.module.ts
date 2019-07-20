@@ -31,6 +31,7 @@ import { AddComplainComponent } from './add-complain/add-complain.component';
 import { ComplainComponent } from './complain/complain.component';
 import {FilterPipe } from './filter.pipe';
 import {FilterPricePipe} from  './filter.price.pipe';
+import { PaymentdoneComponent } from './paymentdone/paymentdone.component';
 const appRoute : Routes = [
   { path:'' ,component: HomeComponent},
   { path:'Navbar' ,component: NavbarComponent},
@@ -39,7 +40,8 @@ const appRoute : Routes = [
   { path:'Profile/:username' ,component: ProfileComponent , canActivate:[AuthGuard]},
   { path:'addComplain' ,component: AddComplainComponent , canActivate:[AuthGuard]},
   { path: 'aboutUs',component: AboutUsComponent},
-  { path: 'complain/:id' , component: ComplainComponent}
+  { path: 'complain/:id' , component: ComplainComponent},
+  {path:'payment/:pid',component: PaymentdoneComponent},
 
 ]; 
 
@@ -55,7 +57,8 @@ const appRoute : Routes = [
     AddComplainComponent,
     ComplainComponent,
     FilterPipe,
-    FilterPricePipe
+    FilterPricePipe,
+    PaymentdoneComponent
   ],
   imports: [
     BrowserModule,
